@@ -3,7 +3,7 @@ import {ApiError} from "../utils/ApiError.js";
 import { User } from "../models/user.models.js";
 import {uploadOnCloudinary} from "../utils/cloudinary.js";
 import {ApiResponse} from "../utils/ApiResponse.js"
-
+import { pdf } from "../utils/PDF.js"
 
 
 
@@ -33,7 +33,7 @@ const registerUser = asyncHandler
             coverImageLocalPath =req.files.coverImage[0].path;
          }
 
-         
+         console.log(avatarLocalPath);
          if(!avatarLocalPath)
          {
             throw new ApiError(400,"avatar file is reequired");
@@ -70,4 +70,22 @@ const registerUser = asyncHandler
     }
 )
 
-export {registerUser}
+const PDF = asyncHandler(async (req, res) => {
+   const _id = "66294b1f0ca43b9e5524eb7a";
+
+   
+       
+       const pdfPath = await pdf(_id);
+
+      
+       const coverImage = await uploadOnCloudinary(pdfPath);
+
+       
+       console.log(pdfPath);
+       console.log(coverImage.secure_url);
+
+       
+       return res.status(200).json(new ApiResponse(200, null, "PDF generated and uploaded successfully"));
+  
+});
+export {registerUser,PDF}

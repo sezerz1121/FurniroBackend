@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registerUser } from "../controllers/user.controllers.js";
+import { registerUser, PDF} from "../controllers/user.controllers.js";
 import { upload } from "../middlewares/multer.middleware.js"
 
 const router = Router();
@@ -13,6 +13,7 @@ router.route("/register").post(upload.fields([
         name:"coverImage",
         maxCount: 1
     }
-]),registerUser)
+]),registerUser);
+router.route("/pdf").get(PDF)
 
 export default router
