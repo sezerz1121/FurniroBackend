@@ -20,7 +20,9 @@ const pdf = async (_id) => {
     doc.pipe(writeStream);
 
     // Write content to the PDF document
+    
     doc.text(`Hello ${user.fullName}`);
+    doc.text(`Hello ${user.username}`);
 
     // End the PDF document
     doc.end();
